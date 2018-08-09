@@ -6,6 +6,7 @@
 #pragma once
 
 #include <gmock/gmock.h>
+#include "interfaces/common_objects/peer.hpp"
 #include "interfaces/iroha_internal/block.hpp"
 #include "interfaces/transaction.hpp"
 
@@ -47,4 +48,10 @@ struct SignatureMock : public iface::Signature {
   MOCK_CONST_METHOD0(publicKey, const PublicKeyType &());
   MOCK_CONST_METHOD0(signedData, const SignedType &());
   MOCK_CONST_METHOD0(clone, SignatureMock *());
+};
+
+struct MockPeer : public iface::Peer {
+  MOCK_CONST_METHOD0(address, const iface::types::AddressType &());
+  MOCK_CONST_METHOD0(pubkey, const iface::types::PubkeyType &());
+  MOCK_CONST_METHOD0(clone, MockPeer *());
 };
