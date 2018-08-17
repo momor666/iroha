@@ -109,11 +109,9 @@ namespace iroha {
         std::shared_ptr<shared_model::interface::Proposal> proposal) {
       log_->info("Received new proposal, height: {}", proposal->height());
       proposal_queue_.push(std::move(proposal));
-      {
-        std::lock_guard<std::mutex> lock(proposal_mutex_);
-        // intentionally pass stub value
-        net_proposals_.get_subscriber().on_next(0);
-      }
+      std::lock_guard<std::mutex> lock(proposal_mutex_);
+      // intentionally pass stub value
+      net_proposals_.get_subscriber().on_next(0);
     }
 
     void OrderingGateImpl::tryNextRound(
